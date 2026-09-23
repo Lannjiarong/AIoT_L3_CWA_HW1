@@ -1,0 +1,52 @@
+============================================================
+TAIWAN WEATHER GIS — GATE 2 VERIFICATION RUN (2026-09-23 11:23:24)
+============================================================
+
+[Step 1/6] Initializing SQLite Database & Validating Schema...
+  ✓ Database file confirmed at: C:\Users\user\Desktop\L3 WAC\data\data.db
+  ✓ Verified columns in TemperatureForecasts table: ['id', 'regionName', 'dataDate', 'startTime', 'endTime', 'weather', 'weatherCode', 'minT', 'maxT', 'pop', 'updatedAt']
+  ✓ Active indexes on table: ['idx_dataDate', 'idx_region_date', 'sqlite_autoindex_TemperatureForecasts_1']
+
+[Step 2/6] Running ETL Pipeline (CWA API -> Transform -> SQLite Load)...
+  ✓ ETL Status: success
+  ✓ Loaded Records Count: 308
+  ✓ Distinct Regions Loaded: 22
+  ✓ ETL Execution Time: 0.27s
+
+[Step 3/6] Verifying Single Region SQL Query (臺中市)...
+  ✓ Retrieved 14 forecast rows for 臺中市.
+  Sample Database Row:
+    - ID:          267
+    - regionName:  臺中市
+    - dataDate:    2026-09-23
+    - startTime:   2026-09-23T12:00:00+08:00
+    - endTime:     2026-09-23T18:00:00+08:00
+    - weather:     晴時多雲 (02)
+    - minT:        30.0 °C
+    - maxT:        33.0 °C
+    - pop:         0 %
+    - updatedAt:   2026-09-23 11:23:24
+  ✓ All row constraints (minT <= maxT, valid date strings) satisfied.
+
+[Step 4/6] Verifying Multi-Region SQL Query (All 22 Counties & Cities)...
+  ✓ All 22 Taiwan counties present in SQLite database:
+    南投縣, 嘉義市, 嘉義縣, 基隆市, 宜蘭縣, 屏東縣, 彰化縣, 新北市, 新竹市, 新竹縣, 桃園市, 澎湖縣, 臺中市, 臺北市, 臺南市, 臺東縣, 花蓮縣, 苗栗縣, 連江縣, 金門縣, 雲林縣, 高雄市
+  ✓ Total database rows count: 308
+
+[Step 5/6] Verifying Daily Aggregation Query (MIN/MAX & Pandas DataFrame)...
+  ✓ Aggregated 7 daily summaries for 臺中市:
+    • Date: 2026-09-23 | Min: 26.0°C | Max: 33.0°C | Weather: 晴時多雲
+    • Date: 2026-09-24 | Min: 25.0°C | Max: 33.0°C | Weather: 晴時多雲
+    • Date: 2026-09-25 | Min: 25.0°C | Max: 33.0°C | Weather: 晴時多雲
+  ✓ Pandas DataFrame SQL integration test passed.
+
+[Step 6/6] Verifying Idempotency & De-duplication Strategy (Second ETL Run)...
+  Executing second ETL run...
+  Row count before second ETL: 308
+  Row count after second ETL:  308
+  ✓ Idempotency verified: Re-running ETL produced 0 duplicate rows.
+
+============================================================
+ALL GATE 2 CRITERIA MET AND VERIFIED SUCCESSFULLY.
+GATE 2 = PASS
+============================================================

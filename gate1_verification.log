@@ -1,0 +1,42 @@
+============================================================
+TAIWAN WEATHER GIS — GATE 1 VERIFICATION RUN (2026-09-23 11:12:13)
+============================================================
+
+[Step 1/6] Validating API Key Security Configuration...
+  ✓ API key detected and loaded successfully.
+  ✓ Safe masked key for logging: CWA-55F...4FB2
+
+[Step 2/6] Sending HTTP GET to CWA Open Data API...
+  Endpoint: https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093
+  Query Location ID: F-D0047-091 (全臺灣 1 週各縣市預報)
+  ✓ HTTP Status: 200 OK
+  ✓ API Response 'success': True
+
+[Step 3/6] Inspecting JSON Response Schema...
+  ✓ Locations group dataset: '臺灣各縣市鄉鎮未來1週逐12小時天氣預報'
+  ✓ Total location entities in response: 22
+
+[Step 4/6] Verifying Single Region Field Extraction (臺中市)...
+  ✓ Found 14 forecast intervals for '臺中市'.
+  Sample Forecast Interval:
+    - Location:     臺中市
+    - Forecast Time:2026-09-23T06:00:00+08:00 -> 2026-09-23T18:00:00+08:00
+    - Weather (Wx): 晴時多雲 (code: 02)
+    - Min Temp (MinT): 26.0 °C
+    - Max Temp (MaxT): 33.0 °C
+    - Rain Pop (PoP):  0 %
+  ✓ All required fields (Wx, MinT, MaxT, PoP) extracted and validated.
+
+[Step 5/6] Confirming Taiwan-Wide Coverage (All 22 Counties & Cities)...
+  ✓ All 22 Taiwan counties/cities confirmed present:
+    南投縣, 嘉義市, 嘉義縣, 基隆市, 宜蘭縣, 屏東縣, 彰化縣, 新北市, 新竹市, 新竹縣, 桃園市, 澎湖縣, 臺中市, 臺北市, 臺南市, 臺東縣, 花蓮縣, 苗栗縣, 連江縣, 金門縣, 雲林縣, 高雄市
+  ✓ Total parsed nationwide forecast records: 308
+
+[Step 6/6] Verifying Township-Level Retrieval (臺中市 29 Townships via F-D0047-075)...
+  ✓ Retrieved 29 townships in 臺中市.
+  ✓ Sample townships: ['霧峰區', '新社區', '神岡區', '外埔區', '大雅區', '北區', '中區', '大安區']...
+
+============================================================
+ALL GATE 1 CRITERIA MET AND VERIFIED SUCCESSFULLY.
+GATE 1 = PASS
+============================================================
