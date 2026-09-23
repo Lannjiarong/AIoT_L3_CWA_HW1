@@ -1,0 +1,23 @@
+# Secret & Local Config
+.env
+*.env
+
+# SQLite Database
+data/
+*.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Streamlit
+.streamlit/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

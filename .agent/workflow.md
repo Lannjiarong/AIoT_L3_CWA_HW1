@@ -26,15 +26,26 @@ Gate 1 CWA API
 
 **Goal**: 從 CWA Open Data API 取得真實 Forecast JSON。
 
-1. 確認 Dataset (例如 `F-C0032-001` 一般天氣預報) 與 API endpoint。
-2. 從 `.env` 讀取 `CWA_API_KEY`；不得在 Log 或輸出中印出完整 key。
-3. 發送真實 HTTP request。
-4. 驗證 HTTP status code (200 OK)。
-5. 依實際 response 解析 JSON，不憑空推測 schema。
-6. 先驗證單一地區（例如：臺中市）。
-7. 輸出 Location、Forecast Time、Weather (WX)、MinT、MaxT；若 Dataset 有提供 PoP (降雨機率) 則一併擷取。
-8. 確認後續所需之全台其他地區資料均正常存在。
-9. 實際執行 `RUN` 並留下測試驗證結果。
+1. **Dataset & Endpoint**: 
+   - 使用指定資料集 **`F-D0047-093`**（台灣各縣市鄉鎮未來 1 週天氣預報）。
+   - Endpoint: `https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093`
+2. **API 金鑰與安全配置**:
+   - 從 `.env` 讀取 `CWA_API_KEY`（設定值格式為 `CWA-55FDA6...4FB2`）。
+   - ⚠️ **嚴禁**在程式輸出、Log 或 Commit 中印出完整 API 金鑰。
+3. **HTTP 請求**:
+   - 使用 Python `requests` 發送真實 HTTP GET 請求。
+4. **狀態碼驗證**:
+   - 驗證 HTTP status code 必須為 `200 OK`。
+5. **JSON Response 結構解析**:
+   - 依實際 response 解析 JSON 階層，不憑空推測 schema。
+6. **地區驗證**:
+   - 先驗證單一地區（例如：臺中市或全台特定鄉鎮）。
+7. **欄位擷取**:
+   - 輸出 Location、Forecast Time、Weather Element (Wx 天氣現象, MinT 最低溫, MaxT 最高溫)；若 Dataset 提供 PoP (降雨機率) 則一併擷取。
+8. **涵蓋度確認**:
+   - 確認全台其他縣市/鄉鎮預報資料均正常存在於 response 中。
+9. **測試驗證與紀錄**:
+   - 實際執行 `RUN` 並留下測試驗證日誌與紀錄。
 
 ⚠️ **禁止事項**：此階段禁止實作 Database、GIS、GitHub deployment 或 Vercel。
 
